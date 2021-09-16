@@ -1,10 +1,14 @@
 <template>
-<div>kaishil</div>
+<div>kaishil
+<Nav/>
+</div>
 </template>
 
 <script>
+
 export default {
-name: "Statistics"
+name: "Statistics",
+
 }
 </script>
 

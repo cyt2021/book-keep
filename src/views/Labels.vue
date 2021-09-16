@@ -1,10 +1,14 @@
 <template>
-<div>lbels</div>
+<div>lbels
+<Nav/>
+</div>
 </template>
 
 <script>
+
 export default {
-name: "Labels"
+name: "Labels",
+
 }
 </script>
 
