@@ -1,17 +1,13 @@
 <template>
-<div>kaishil
-<Nav/>
-</div>
+<Layout>Statistics</Layout>
 </template>
 
 <script>
 
+import Layout from "@/components/Layout";
 export default {
 name: "Statistics",
-
+  components: {Layout},
 }
 </script>
 
-<style scoped>
-
-</style>
