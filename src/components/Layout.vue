@@ -8,13 +8,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
 name: "Layout"
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .nav-{
   border:1px solid green;
   display:flex;

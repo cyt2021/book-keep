@@ -2,9 +2,9 @@
 <Layout>Labels </Layout>
 </template>
 
-<script>
+<script lang="ts">
 
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout.vue";
 export default {
 name: "Labels",
   components: {Layout},

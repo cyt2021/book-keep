@@ -2,9 +2,9 @@
 <Layout>Statistics</Layout>
 </template>
 
-<script>
+<script lang="ts">
 
-import Layout from "@/components/Layout";
+import Layout from "@/components/Layout.vue";
 export default {
 name: "Statistics",
   components: {Layout},
