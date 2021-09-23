@@ -18,6 +18,7 @@
 <script lang="ts">
 import Icons from "@/components/Icons.vue";
 
+
 export default {
 name: "Nav",
   components: {Icons}
@@ -25,9 +26,10 @@ name: "Nav",
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 nav{
-  display: flex;
-  box-shadow:0 0 3px rgba(0,0,0,0.3);
+  @extend %outerShadow;
+  display:flex;
   flex-direction: row;
   font-size: 11px;
   > .item{
@@ -43,7 +45,7 @@ nav{
     }
   }
   > .item.selected{
-    color:blueviolet;
+    color:$color-highlight;
   }
 }
 </style>
