@@ -7,7 +7,7 @@
     </div>
     <ul class="current">
       <li v-for="tag in dataSource" :key="tag"
-          :class="{selected: selectedTags.indexOf(tag) >=0}"
+          :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">{{tag}}
       </li>
     </ul>
@@ -28,7 +28,7 @@ toggle(tag:string){
   }else{
     this.selectedTags.push(tag)
   }
-
+this.$emit('update:value',this.selectedTags)
 }
 
 
