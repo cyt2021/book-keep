@@ -1,9 +1,13 @@
 <template>
   <Layout class-prefix="layout">
-    <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
+    <NumberPad @update:value="onUpdateAmount"
+               @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
-    <Notes @update:value="onUpdateNotes"/>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Notes field-name="备注"
+           placeholder="在这里输入备注"
+           @update:value="onUpdateNotes"/>
+    <Tags :data-source.sync="tags"
+          @update:value="onUpdateTags"/>
   </Layout>
 </template>
 
@@ -22,11 +26,11 @@ const tagList = tagListModel.fetch()
 @Component({
   components: {Tags, Notes, NumberPad, Types}
 })
-export default class Money extends Vue{
-      tags = tagList;
-      recordList:RecordItem[]=recordList;
-  record:RecordItem ={
-        tags:[],notes:'',type:'-',amount:0
+export default class Money extends Vue {
+  tags = tagList;
+  recordList: RecordItem[] = recordList;
+  record: RecordItem = {
+    tags: [], notes: '', type: '-', amount: 0
   }
 
 onUpdateTags(value:string[]){
