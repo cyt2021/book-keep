@@ -6,7 +6,8 @@ const recordListModel ={
     create(record:RecordItem){
         const record2= clone(record);
         this.data.push(record2);
-        record2.createdAt=new Date()
+        record2.createdAt=new Date();
+        this.save()
     },
 
     fetch(){
