@@ -1,10 +1,10 @@
-import createId from '@/lib/createId.ts';
+import created from '@/lib/created.ts';
 const localStorageKeyName = 'tagList';
 const tagListModel: TagListModel = {
     data: [],
     create(name: string) {
         const names = this.data.map(item => item.name);
-        const id = createId().toString()
+        const id = created().toString()
         if (names.indexOf(name) >= 0) {
             return 'duplicated'
         }
