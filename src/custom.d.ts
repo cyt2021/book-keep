@@ -5,9 +5,7 @@ type RecordItem = {
     amount:number
     createdAt?:Date
 }
-interface Window{
-    tagList:Tag[]
-}
+
 type Tag = {
     id: string;
     name: string;
@@ -19,4 +17,8 @@ type TagListModel = {
     fetch: () => Tag[]
     remove: (id: string) => boolean
     save: () => void
+}
+interface Window{
+    tagList:Tag[]
+    createTag:(name:string)=>void
 }
