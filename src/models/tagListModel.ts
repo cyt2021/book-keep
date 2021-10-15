@@ -1,4 +1,5 @@
 import created from '@/lib/created.ts';
+
 const localStorageKeyName = 'tagList';
 const tagListModel: TagListModel = {
     data: [],
