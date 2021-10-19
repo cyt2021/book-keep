@@ -5,6 +5,7 @@ const tagStore={
     fetchTag() {
         this.tagList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]')
         return this.tagList
+
     },
     findTag(id: string){
         return this.tagList.filter(t => t.id === id)[0]
@@ -52,7 +53,7 @@ const tagStore={
         } else {
             return 'not found'
         }
-    }
+    },
 }
 tagStore.fetchTag()
 export default tagStore
