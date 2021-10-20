@@ -20,12 +20,11 @@ import Button from "@/components/Button.vue"
 
 @Component({
   components: {Button},
-  computed:{
-    tags(){
-      return this.$store.state. tagList;}
-  }
+
 })
 export default class Labels extends Vue{
+get tags(){
+  return this.$store.state. tagList;}
   created(){
     this.$store.commit('fetchTag')
   }
