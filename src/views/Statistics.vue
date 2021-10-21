@@ -1,7 +1,11 @@
 <template>
 <Layout>
-  <Tabs class-prefix="type" :data-source="typelList" :value.sync="type"/>
+  <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
   <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
+  <div>
+    type:{{type}}
+    interval:{{interval}}
+  </div>
 </Layout>
 </template>
 
@@ -15,6 +19,9 @@
     }
   }
 }
+::v-deep .interval-tabs-item{
+  height: 48px;
+}
 
 
 
@@ -27,19 +34,16 @@ import Types from "@/components/Money/Types.vue";
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
+import recordTypeList from "@/constants/recordTypeList";
+import intervalList from "@/constants/intervalList";
 @Component({
   components: {Tabs, Types, Layout}
 })
 export default class statistics extends Vue{
   type='-'
   interval='day'
-  intervalList=[{text:'按天',value:'day'},
-    {text:'按周',value:'week'},
-    {text:'按月',value:'month'}
-  ]
-  typelList=[{text:'收入',value:'+'},
- {text:'支出',value:'-'}
-]
+  intervalList=intervalList
+  recordTypeList=recordTypeList
 }
 </script>
 
