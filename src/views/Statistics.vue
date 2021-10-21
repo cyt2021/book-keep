@@ -1,7 +1,7 @@
 <template>
 <Layout>
-  <Tabs :class-prefix="type" :data-source="typelList" :value.sync="type"/>
-  <Tabs :class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
+  <Tabs class-prefix="type" :data-source="typelList" :value.sync="type"/>
+  <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
 </Layout>
 </template>
 
