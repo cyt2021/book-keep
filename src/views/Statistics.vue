@@ -1,7 +1,7 @@
 <template>
 <Layout>
   <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-  <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
+  <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" height="48"/>
   <div>
     type:{{type}}
     interval:{{interval}}
@@ -19,9 +19,9 @@
     }
   }
 }
-::v-deep .interval-tabs-item{
-  height: 48px;
-}
+//::v-deep .interval-tabs-item{
+//  height: 48px;
+//}
 
 
 
@@ -30,14 +30,13 @@
 <script lang="ts">
 
 import Layout from "@/components/Layout.vue";
-import Types from "@/components/Money/Types.vue";
 import Vue from "vue";
 import {Component} from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import intervalList from "@/constants/intervalList";
 @Component({
-  components: {Tabs, Types, Layout}
+  components: {Tabs, Layout}
 })
 export default class statistics extends Vue{
   type='-'
