@@ -5,11 +5,6 @@ import created from "@/lib/created";
 import router from "@/router";
 
 Vue.use(Vuex)
-type RootState = {
-    recordList: RecordItem[],
-    tagList: Tag[],
-    currentTag?: Tag
-}
 
 const store = new Vuex.Store({
     state: {
@@ -26,7 +21,7 @@ const store = new Vuex.Store({
         },
         createRecord(state, record) {
             const record2 = clone(record);
-            record2.createdAt = new Date();
+            record2.createdAt = new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecords')
         },
