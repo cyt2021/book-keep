@@ -1,5 +1,5 @@
 type RecordItem = {
-    tags: string[];
+    tags: Tag[];
     notes: string;
     type: string;
     amount: number;
@@ -10,10 +10,10 @@ type Tag = {
     name: string;
 };
 
-interface Window {
-}
+
 type RootState = {
     recordList: RecordItem[],
     tagList: Tag[],
-    currentTag?: Tag
+    currentTag?: Tag,
+    createRecordError:Error | null
 }

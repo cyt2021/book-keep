@@ -28,6 +28,6 @@ module.exports = {
   ],
   globals: {
     "RecordItem": true,
-    "RootState": true
+    "RootState": true,
   }
 }
