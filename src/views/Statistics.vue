@@ -1,6 +1,9 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <div class="chart-wrapper" ref="chartWrapper">
+      <e-charts class="chart" :option="echartsOption"/>
+    </div>
     <ol v-if="groupedList.length>0">
       <li v-for="(group,index) in groupedList" :key="index">
         <h3 class="title">
@@ -31,14 +34,37 @@ import Tabs from "@/components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import dayjs from "dayjs";
 import clone from "@/lib/clone";
+import _ from "lodash";
+
+import ECharts from 'vue-echarts'
+import {use} from "echarts/core";
+import {CanvasRenderer} from "echarts/renderers";
+import {GridComponent} from 'echarts/components';
+import {LineChart} from 'echarts/charts';
+import {TooltipComponent} from 'echarts/components';
+
+
+use([
+  CanvasRenderer,
+  LineChart,
+  TooltipComponent,
+  GridComponent
+]);
 
 
 @Component({
-  components: {Tabs, Layout}
+  components: {ECharts, Tabs, Layout}
 })
 export default class statistics extends Vue {
+
+
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' : tags.map(t => t.name).join(',')
+  }
+
+  mounted() {
+    const div = (this.$refs.chartWrapper as HTMLDivElement)
+    div.scrollLeft = div.scrollWidth
   }
 
   beautify(string: string) {
@@ -55,6 +81,74 @@ export default class statistics extends Vue {
     }
 
   }
+get y(){
+  const today = new Date();
+  const array = [];
+  for (let i = 0; i <= 29; i++) {
+    const dateString = dayjs(today)
+        .subtract(i, 'day').format('YYYY-MM-DD');
+    const found = _.find(this.groupedList, {title: dateString});
+    array.push({
+      date: dateString, value: found ? found.total : 0
+    })
+  }
+  array.sort((a,b)=>{
+    if(a.date>b.date){
+      return 1
+    }else if(a.date<b.date){
+      return -1}
+    else {
+      return 0}
+  })
+  return array
+}
+
+  get echartsOption() {
+
+
+    const keys = this.y.map(r => r.date);
+    const values = this.y.map(r => r.value);
+
+    return {
+      tooltip: {
+        trigger: 'item',
+        formatter: '{c}',
+        triggerOn: 'click',
+        position: 'top',
+        axisPointer: {type: 'shadow'}
+      },
+      grid: {
+        left: '0',
+        right: '0'
+      },
+      xAxis: {
+        type: 'category',
+        data: keys,
+        axisTick: {alignWithLabel: true},
+        axisLine: {lineStyle: {color: '#666'}},
+        axisLabel:{formatter: function (value:string, index:number) {
+            return value.substr(5);
+          }}
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      series: [
+        {
+          symbolSize: 10,
+          symbol: 'circle',
+          data: values,
+          type: 'line',
+          lineStyle: {color: '#666'},
+          itemStyle: {color: '#666'},
+
+        }
+
+      ]
+    }
+  }
+
 
   get recordList() {
     return (this.$store.state as RootState).recordList
@@ -83,6 +177,7 @@ export default class statistics extends Vue {
         group.total = group.items.reduce((sum, item) => sum + item.amount, 0)
     )
 
+
     return result
   }
 
@@ -96,6 +191,20 @@ export default class statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+
+.chart {
+  height: 400px;
+  width: 430%;
+
+  &-wrapper {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
 ::v-deep .type-tabs-item {
   background: #c4c4c4;
 

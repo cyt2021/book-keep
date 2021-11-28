@@ -11,18 +11,19 @@ const store = new Vuex.Store({
         recordList: [] as RecordItem[],
         tagList: [] as Tag[],
         currentTag: undefined,
-        createRecordError:null,
+        createRecordError: null,
+        createTagError: null,
     } as RootState,
     mutations: {
-        setCurrentTag(state, id:string) {
+        setCurrentTag(state, id: string) {
             state.currentTag = state.tagList.filter(t => t.id === id)[0]
         },
         fetchRecords(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[]
         },
-        createRecord(state, record:RecordItem) {
+        createRecord(state, record: RecordItem) {
             const record2 = clone(record);
-            record2.createdAt = new Date().toISOString();
+            record2.createdAt = record2.createdAt ||new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecords')
         },
@@ -31,27 +32,29 @@ const store = new Vuex.Store({
         },
         fetchTag(state) {
             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]')
-            if(!state.tagList || state.tagList.length===0){
-                store.commit('createTag','衣')
-                store.commit('createTag','食')
-                store.commit('createTag','住')
-                store.commit('createTag','行')
+            if (!state.tagList || state.tagList.length === 0) {
+                store.commit('createTag', '衣')
+                store.commit('createTag', '食')
+                store.commit('createTag', '住')
+                store.commit('createTag', '行')
             }
         },
         createTag(state, name: string) {
+            state.createTagError=null
             const names = state.tagList.map(item => item.name);
             const id = created().toString()
             if (names.indexOf(name) >= 0) {
-                window.alert('标签名重复了')
+                state.createTagError = new Error('tag name duplicated')
+            return;
             }
             state.tagList.push({id: id, name: name})
             store.commit('saveTags')
-            window.alert('添加成功')
+
         },
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList))
         },
-        updateTag(state, payload:{ id:string,name: string}) {
+        updateTag(state, payload: { id: string, name: string }) {
             const {id, name} = payload
             const idList = state.tagList.map(item => item.id);
             if (idList.indexOf(id) >= 0) {

@@ -8,6 +8,12 @@
                 placeholder="在这里输入备注"
                 :value.sync="record.notes"/>
     </div>
+    <div>
+      <FormItem field-name="日期"
+                placeholder="在这里输入日期"
+                type="date"
+                :value.sync="record.createdAt"/>
+    </div>
     <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
@@ -31,7 +37,7 @@ export default class Money extends Vue {
 
   recordTypeList = recordTypeList
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0
+    tags: [], notes: '', type: '-', amount: 0, createdAt:new Date().toISOString()
   }
 
   created() {
