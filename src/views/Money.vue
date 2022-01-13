@@ -37,7 +37,7 @@ export default class Money extends Vue {
 
   recordTypeList = recordTypeList
   record: RecordItem = {
-    tags: [], notes: '', type: '-', amount: 0, createdAt:new Date().toISOString()
+    tags: [], notes: '', type: '+', amount: 0, createdAt: new Date().toISOString()
   }
 
   created() {
@@ -53,13 +53,13 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    if(!this.record.tags||this.record.tags.length===0){
+    if (!this.record.tags || this.record.tags.length === 0) {
       return window.alert('请至少选择一个标签')
     }
     this.$store.commit('createRecord', this.record);
-    if(this.$store.state.createRecordError === null){
+    if (this.$store.state.createRecordError === null) {
       window.alert('已保存');
-      this.record.notes=''
+      this.record.notes = ''
     }
 
   }

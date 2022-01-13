@@ -8,7 +8,7 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag) >= 0}"
-          @click="toggle(tag)">{{tag.name}}
+          @click="toggle(tag)">{{ tag.name }}
       </li>
     </ul>
   </div>
@@ -19,38 +19,42 @@ import Vue from 'vue'
 import {Component} from "vue-property-decorator";
 
 @Component
-export default class Tags extends Vue{
-  get tagList(){
+export default class Tags extends Vue {
+  get tagList() {
     return this.$store.state.tagList;
   }
-selectedTags:string[] =[];
-created(){
-  this.$store.commit('fetchTag')
-}
-toggle(tag:string){
-  const index=this.selectedTags.indexOf(tag);
-  if(index>=0){
-    this.selectedTags.splice(index,1)
-  }else{
-    this.selectedTags.push(tag)
-  }
-  this.$emit('update:value',this.selectedTags)
-}
-create(){
-  const name =window.prompt('请输入标签名')
-if(!name){
-  window.alert('标签名不能为空')
-}else{
-  this.$store.commit('createTag',name)
-}
-  const map:{ [key:string]:string } = {
-    'tag name duplicated':'标签名重复了'
-  }
-if(this.$store.state.createTagError){
-  window.alert(map[this.$store.state.createTagError.message] || '未知错误')
-}
 
-}
+  selectedTags: string[] = [];
+
+  created() {
+    this.$store.commit('fetchTag')
+  }
+
+  toggle(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1)
+    } else {
+      this.selectedTags.push(tag)
+    }
+    this.$emit('update:value', this.selectedTags)
+  }
+
+  create() {
+    const name = window.prompt('请输入标签名')
+    if (!name) {
+      window.alert('标签名不能为空')
+    } else {
+      this.$store.commit('createTag', name)
+    }
+    const map: { [key: string]: string } = {
+      'tag name duplicated': '标签名重复了'
+    }
+    if (this.$store.state.createTagError) {
+      window.alert(map[this.$store.state.createTagError.message] || '未知错误')
+    }
+
+  }
 
 }
 </script>
@@ -68,8 +72,9 @@ if(this.$store.state.createTagError){
   > .current {
     display: flex;
     flex-wrap: wrap;
+
     > li {
-      $bg:#d9d9d9;
+      $bg: #d9d9d9;
       background: $bg;
       $h: 24px;
       height: $h;
@@ -77,9 +82,10 @@ if(this.$store.state.createTagError){
       border-radius: $h/2;
       padding: 0 16px;
       margin-right: 12px;
-      &.selected{
-        background: darken($bg,50%);
-        color:white;
+
+      &.selected {
+        background: darken($bg, 50%);
+        color: white;
 
       }
 

@@ -40,15 +40,15 @@ export default class EditLabel extends Vue {
     }
   }
 
-  update(name:string) {
+  update(name: string) {
     if (this.currentTag) {
-      this.$store.commit('updateTag', {id: this.currentTag.id,name})
+      this.$store.commit('updateTag', {id: this.currentTag.id, name})
     }
   }
 
   remove() {
     if (this.currentTag) {
-      this.$store.commit('removeTag',this.currentTag.id)
+      this.$store.commit('removeTag', this.currentTag.id)
     }
   }
 

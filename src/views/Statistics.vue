@@ -176,8 +176,6 @@ get y(){
     result.map(group =>
         group.total = group.items.reduce((sum, item) => sum + item.amount, 0)
     )
-
-
     return result
   }
 
